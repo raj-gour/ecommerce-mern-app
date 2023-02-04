@@ -1,56 +1,30 @@
-import { data } from "./data";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import HomeScreen from "./screens/HomeScreen";
+import ProductScreen from "./screens/ProductScreen";
 function App() {
   return (
-    <div className="grid-container">
-      <header className="row">
-        <div>
-          <a className="brand" href="index.html">
-            amazon
-          </a>
-        </div>
-        <div>
-          <a href="cart.html">Cart</a>
-          <a href="signin.html">Sign In</a>
-        </div>
-      </header>
-      <main>
-        <div className="row center">
-          {data.products.map((product) => {
-            return (
-              <div className="card" key={product._id}>
-                <a href={`/product/${product._id}`}>
-                  <img className="medium" src={product.image} alt={product.name} />
-                </a>
-                <div className="card-body">
-                  <a href={`/product/${product._id}`}>
-                    <h2>{product.name}</h2>
-                  </a>
-                  <div className="rating">
-                    <span>
-                      <i className="fa fa-star"></i>
-                    </span>
-                    <span>
-                      <i className="fa fa-star"></i>
-                    </span>
-                    <span>
-                      <i className="fa fa-star"></i>
-                    </span>
-                    <span>
-                      <i className="fa fa-star"></i>
-                    </span>
-                    <span>
-                      <i className="fa fa-star-o"></i>
-                    </span>
-                  </div>
-                  <div className="price">${product.price}</div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </main>
-      <footer className="row center">All right reserved</footer>
-    </div>
+    <BrowserRouter>
+      <div className="grid-container">
+        <header className="row">
+          <div>
+            <Link className="brand" to="/">
+              amazon
+            </Link>
+          </div>
+          <div>
+            <a href="cart.html">Cart</a>
+            <a href="signin.html">Sign In</a>
+          </div>
+        </header>
+        <main>
+          <Routes>
+            <Route path="/"  element={<HomeScreen />} exact/>
+            <Route path="/product/:id"  element={<ProductScreen />} exact/>
+          </Routes>
+        </main>
+        <footer className="row center">All right reserved</footer>
+      </div>
+    </BrowserRouter>
   );
 }
 
